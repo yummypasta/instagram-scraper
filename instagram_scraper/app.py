@@ -136,7 +136,7 @@ class InstagramScraper(object):
             with open(self.cookiejar, 'rb') as f:
                 self.session.cookies.update(pickle.load(f))
         self.session.cookies.set('ig_pr', '1')
-        self.rhx_gis = None
+        self.rhx_gis = ""
 
         self.cookies = None
         self.authenticated = False
@@ -231,7 +231,7 @@ class InstagramScraper(object):
         self.session.headers.update({'X-CSRFToken': req.cookies['csrftoken']})
 
         self.session.headers = {'user-agent': CHROME_WIN_UA}
-        self.rhx_gis = self.get_shared_data()['rhx_gis']
+        self.rhx_gis = ""
         self.authenticated = True
 
     def authenticate_with_login(self):
@@ -251,7 +251,7 @@ class InstagramScraper(object):
             self.authenticated = True
             self.logged_in = True
             self.session.headers = {'user-agent': CHROME_WIN_UA}
-            self.rhx_gis = self.get_shared_data()['rhx_gis']
+            self.rhx_gis = ""
         else:
             self.logger.error('Login failed for ' + self.login_user)
 
@@ -632,7 +632,7 @@ class InstagramScraper(object):
                     user['edge_owner_to_timeline_media']['edges']:
                         self.logger.info('User {0} is private'.format(username))
 
-                self.rhx_gis = shared_data['rhx_gis']
+                self.rhx_gis = ""
             
                 self.get_profile_pic(dst, executor, future_to_item, user, username)
 
